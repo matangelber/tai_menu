@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อาหารไทย - תפריט תאילנדי עילי</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700&family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Assistant', sans-serif; background-color: #042f2e; } 
+        .font-thai { font-family: 'Kanit', sans-serif; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .modal-enter { animation: fadeIn 0.2s ease-out; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #042f2e; }
+        ::-webkit-scrollbar-thumb { background: #0f766e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #14b8a6; }
+    </style>
+</head>
+<body class="bg-teal-950">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const ChevronRight = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>;
+        const ChevronLeft = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>;
+        const X = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+        const ListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>;
+        const BookIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>;
+
+        const dishes = [
+            {
+                id: 'somtum',
+                title: 'סום טאם',
+                thai: 'ส้มตำไทย',
+                description: 'סלט פפאיה ירוקה פריך, חמוץ, חריף ורענן באופן יוצא דופן. המנה מציגה את השילוב התאילנדי הקלאסי של ארבעת הטעמים המרכזיים: חריפות, חמיצות, מלוח-אומאמי ומתיקות מעודנת.',
+                image: 'images/1_somtum.jpg',
+                technical: 'כתישה מבוקרת במכתש ועלי עץ (ולא מאבן, כדי למנוע ריסוק). הטכניקה מתמקדת בהוצאת השמנים האתריים ועיסוי הפפאיה לספיגת הרוטב.',
+                type: 'פתיחה קרה',
+                ingredients: [
+                    '2 פפאיה ירוקה גדולה (מגוררת לרצועות)',
+                    '12 שיני שום ישראלי',
+                    '8-10 פלפלי צ\'ילי תאילנדי טרי',
+                    '2 חופנים שעועית תאילנדית ארוכה',
+                    '30 עגבניות שרי תמר, חצויות',
+                    '1.5 כוסות בוטנים קלויים',
+                    '1 כוס מיץ ליים סחוט טרי',
+                    '3/4 כוס רוטב דגים איכותי',
+                    '5 כפות סוכר דקלים טבעי',
+                    '4 כפות חסילונים מיובשים'
+                ],
+                steps: [
+                    'מגררים את הפפאיה הירוקה ומשרים במי קרח ל-10 דקות להגברת פריכות, מסננים היטב.',
+                    'במכתש ועלי מעץ כותשים שום וצ\'ילי יחד עד לקבלת מחית ארומטית.',
+                    'מוסיפים סוכר דקלים, רוטב דגים ומיץ ליים, וממוססים היטב עד שהסוכר נעלם ברוטב.',
+                    'מוסיפים שעועית ירוקה וחסילונים וכותשים קלות לפציעתם.',
+                    'מעסים את רצועות הפפאיה ברוטב במכתש במשך כדקה.',
+                    'מעבירים לצלחת, מפזרים בוטנים קלויים ומגישים מיד לצד כרוב לבן.'
+                ]
+            },
+            {
+                id: 'larbgai',
+                title: 'לאב גאי',
+                thai: 'ลาบไก่',
+                description: 'סלט בשר עוף קצוץ חם מצפון-מזרח תאילנד. מנה חריפה, חמוצה ובעלת פרופיל ארומטי משכר בזכות שימוש מסיבי בעשבי תיבול טריים ואבקת אורז קלוי.',
+                image: 'images/2_larbgai.jpg',
+                technical: 'האלמנט הקריטי הוא ה-Khao Khwar (אורז קלוי וטחון) שפועל כחומר מעבה הסופח את מיצי הבשר, מעניק מרקם פריך ומפיץ ארומה אגוזית.',
+                type: 'פתיחה חמה',
+                ingredients: [
+                    '1.2 ק"ג בשר עוף קצוץ דק מאוד בסכין',
+                    '3/4 כוס אורז דביק תאילנדי לא מבושל (לקלייה)',
+                    '2 בצלים סגולים פרוסים דק במיוחד',
+                    '6 גבעולי בצל ירוק קצוצים',
+                    '2 כוסות עלי נענע טרייה',
+                    '1.5 כוסות כוסברה קצוצה גס',
+                    '6 כפות שבבי צ\'ילי יבש חריף',
+                    '3/4 כוס מיץ ליים טרי',
+                    '1/2 כוס רוטב דגים'
+                ],
+                steps: [
+                    'קולים אורז דביק במחבת יבשה במשך 15-20 דקות עד השחמה, וכותשים לאבקה גסה (Khao Khwar).',
+                    'בסיר רחב חולטים את העוף הקצוץ עם מעט ציר או מים עד שהוא מבושל לחלוטין.',
+                    'מכבים את האש! (קריטי). מוסיפים רוטב דגים, מיץ ליים ושבבי צ\'ילי יבש לתוך הבשר החם.',
+                    'מוסיפים בצל סגול, בצל ירוק וכוסברה ומערבבים קלות.',
+                    'רגע לפני ההגשה מקפלים פנימה את האורז הקלוי ועלי הנענע.',
+                    'מגישים לצד רצועות מלפפון קר ועלי חסה רעננים.'
+                ]
+            },
+            {
+                id: 'tomyum',
+                title: 'טום יאם גונג',
+                thai: 'ต้มยำกุ้ง',
+                description: 'מרק השרימפס המפורסם בעולם. ציר מחשמל, עשיר, חמוץ, חריף ועמוק, הכוללת נגיעה של חלב קוקוס ומשחת צ\'ילי למרקם קטיפתי.',
+                image: 'images/3_tomyum.jpg',
+                technical: 'יצירת ציר עמוק מטיגון ראשי ושריוני השרימפס, ומיצוי של "השילוש הקדוש" (למון גראס, גלאנגל, קפיר ליים). חומציות הליים מתווספת תמיד לאחר כיבוי האש.',
+                type: 'מרק',
+                ingredients: [
+                    '1.5 ק"ג שרימפס טריים (עם הראש והשריון לציר)',
+                    '8 גבעולי למון גראס (רק החלק הלבן) מעוכים קלות',
+                    '15 פרוסות דקות של גלאנגל טרי',
+                    '15 עלי קפיר ליים קרועים ידנית',
+                    '10 פלפלי צ\'ילי תאילנדי',
+                    '500 גרם פטריות טריות (חתוכות)',
+                    '5 כפות משחת צ\'ילי מתוקה (Nam Prik Pao)',
+                    '1/2 כוס רוטב דגים איכותי',
+                    '2/3 כוס מיץ ליים סחוט טרי',
+                    '1 כוס חלב קוקוס עשיר',
+                    '1 כוס כוסברה קצוצה'
+                ],
+                steps: [
+                    'מקלפים את השרימפס. מטגנים את הראשים והשריונות בסיר גדול עד שהם כתומים. מוסיפים 2.5 ליטר מים, מרתיחים 25 דקות ומסננים את הציר.',
+                    'מרתיחים שוב את הציר הנקי. מוסיפים למון גראס, גלאנגל, עלי קפיר ליים וצ\'ילי. מבשלים 5 דקות.',
+                    'מוסיפים פטריות, משחת צ\'ילי ורוטב דגים למרק ומבשלים 3-4 דקות.',
+                    'מוסיפים חלב קוקוס. מחליקים פנימה את השרימפס הנקיים ומבשלים רק 2-3 דקות עד לאטימות.',
+                    'מכבים את האש לחלוטין. מוסיפים מיץ ליים וכוסברה קצוצה.',
+                    'מגישים בקעריות עמוקות וחמות.'
+                ]
+            },
+            {
+                id: 'khaosoi',
+                title: 'קאו סוי',
+                thai: 'ข้าวซอยไก่',
+                description: 'מרק הקארי האגדי של צפון תאילנד. ציר עשיר וסמיך מבוסס חלב קוקוס, המכיל כרעי עוף נימוחים שהתבשלו שעות, ומוגש על שני סוגי אטריות.',
+                image: 'images/4_khaosoi.jpg',
+                technical: 'טכניקת ה-Coconut Crack: אידוי החלק השומני של הקוקוס בווק עד הפרשת שמן שקוף. טיגון משחת הקארי בשמן זה מעניק עומק שאי אפשר להשיג בטיגון רגיל.',
+                type: 'עיקרית',
+                ingredients: [
+                    '2.5 ק"ג כרעי עוף ושוקיים נקיים',
+                    '3 כוסות משחת קארי קאו סוי (או קארי אדום וצהוב)',
+                    '1.5 ליטר קרם קוקוס מופרד (חלק סמיך וחלק נוזלי)',
+                    '1 ליטר ציר עוף עשיר',
+                    '1.5 ק"ג אטריות ביצים תאילנדיות',
+                    '6 כפות סוכר דקלים',
+                    '1/2 כוס רוטב דגים',
+                    'שמן לטיגון עמוק',
+                    'לתוספות: בצלצלי שאלוט, חמוצי עלי חרדל, ליים ושמן צ\'ילי'
+                ],
+                steps: [
+                    'יוצקים 2 כוסות מהחלק הסמיך של קרם הקוקוס לסיר ומבשלים עד שהקרם נשבר ומפריש שמן.',
+                    'מטגנים את משחת הקארי בשמן הקוקוס במשך 5 דקות ומפיצים ארומה עזה.',
+                    'מוסיפים את העוף וצורבים היטב.',
+                    'מוסיפים את יתרת נוזל הקוקוס וציר העוף. מבשלים על אש קטנה שעה ורבע. מתבלים בסוכר דקלים ורוטב דגים.',
+                    'מטגנים בשמן עמוק כ-20% מכמות האטריות לקבלת אטריות פריכות וזהובות. את השאר מבשלים במים לאל-דנטה.',
+                    'מרכיבים קערה עם אטריות רכות, עוף מרק סמיך, ומעל הכל חופן גדול של אטריות פריכות.'
+                ]
+            },
+            {
+                id: 'planeung',
+                title: 'פלה ננג מנאו',
+                thai: 'ปลานึ่งมะนาว',
+                description: 'דג שלם מאודה בסגנון חוף תאילנדי קלאסי. מנה חגיגית וארומטית במיוחד, כשהבשר הלבן סופג רוטב לוהט, דומיננטי ובועט.',
+                image: 'images/5_planeung.jpg',
+                technical: 'חריצה עד העצם מבטיחה בישול מהיר. הרוטב יוצק על הדג מיד כשהוא יוצא מהאידוי בעודו לוהט, מה שגורם לבשר לפעול כספוג מדהים לטעמים.',
+                type: 'עיקרית',
+                ingredients: [
+                    '3 דגי לברק/ברמונדי שלמים (כ-700 גרם לכל דג)',
+                    '6 גבעולי למון גראס מעוכים היטב',
+                    '1.5 כוסות שיני שום קצוצות דק מאוד',
+                    '1 כוס פלפל צ\'ילי אדום וירוק קצוץ דק',
+                    '1.5 כוסות מיץ ליים טרי',
+                    '1 כוס רוטב דגים איכותי',
+                    '4 כפות סוכר דקלים מומס',
+                    '1 כוס ציר דגים חם',
+                    '2 כוסות עלי כוסברה טרייה קצוצה'
+                ],
+                steps: [
+                    'חורצים 3-4 חתכים אלכסוניים בכל צד של הדג עד העצם. דוחסים למון גראס לחלל הבטן.',
+                    'בקערה נפרדת מערבבים שום, צ\'ילי, מיץ ליים, רוטב דגים, סוכר דקלים וציר חם.',
+                    'מרתיחים מים פראית בסיר אידוי. מאדים את הדגים על אש גבוהה במשך 12-14 דקות.',
+                    'מוציאים את הדגים. שופכים חצי מנוזלי האידוי שהצטברו בצלחת, ומיד יוצקים מעל הדגים את כל רוטב הליים-צ\'ילי.',
+                    'מפזרים הר של כוסברה קצוצה ומגישים לוהט לשולחן.'
+                ]
+            },
+            {
+                id: 'stickyrice',
+                title: 'קאו ניאו ממואנג',
+                thai: 'ข้าวเหนียวมะม่วง',
+                description: 'קינוח הרחוב המלכותי. שילוב גאוני בין אורז דביק חמים ספוג בקרם קוקוס מתוק-מלוח, לבין פרוסות מנגו בשל, קר ורענן.',
+                image: 'images/6_mangostickyrice.jpg',
+                technical: 'הטמעת "חום על חום": שטיפה קפדנית של האורז עד מים שקופים, וערבוב האורז הלוהט ישר מהאידוי עם קרם הקוקוס החם להבטחת ספיגה מוחלטת לשומן.',
+                type: 'קינוח',
+                ingredients: [
+                    '1 ק"ג אורז דביק תאילנדי (Glutinous Rice - חובה)',
+                    '3 כוסות קרם קוקוס טבעי סמיך ואיכותי',
+                    '1.5 כוסות סוכר לבן',
+                    '2 כפיות שטוחות מלח ים דק (לאיזון התאילנדי המסורתי)',
+                    '6 יחידות מנגו גדולים, בשלים ויציבים',
+                    '4 כפות זרעי שעועית מונג צהובים (Thua Thong) קלויים לפריכות'
+                ],
+                steps: [
+                    'שוטפים את האורז 5-6 פעמים במים זורמים עד שהם צלולים לחלוטין. משרים במי ברז 6-8 שעות.',
+                    'מאדים את האורז בסלסלת במבוק מעל מים רותחים (האורז לא נוגע במים) במשך 25 דקות.',
+                    'בסיר קטן מחממים 2.5 כוסות קרם קוקוס, סוכר ומלח רק עד המסה (אסור להגיע לרתיחה).',
+                    'יוצקים את סירופ הקוקוס החם מעל האורז הלוהט והמאודה בקערה. מערבבים בעדינות, מכסים ומשאירים ל-40 דקות לספיגה וניפוח.',
+                    'מכינים רוטב ציפוי: בחצי כוס קרם הנותרת, מערבבים כפית סוכר וקורט מלח ומחממים קלות.',
+                    'בצלחת מסדרים תלולית אורז דביק מבריק, לצידה מנגו קר, מזלפים רוטב ציפוי מעל ומפזרים זרעי מונג קלויים.'
+                ]
+            }
+        ];
+
+        function Modal({ isOpen, onClose, title, children }) {
+            if (!isOpen) return null;
+            return (
+                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-teal-950/80 backdrop-blur-sm" onClick={onClose}></div>
+                    <div className="bg-teal-950 w-full max-w-lg rounded-t-3xl sm:rounded-3xl overflow-hidden relative z-10 modal-enter max-h-[85vh] flex flex-col border-t-4 border-amber-400 shadow-[0_0_30px_rgba(4,47,46,0.8)]">
+                        <div className="p-6 border-b border-teal-800/50 flex justify-between items-center sticky top-0 bg-teal-900/90 backdrop-blur z-10">
+                            <h3 className="text-xl font-bold text-amber-400">{title}</h3>
+                            <button onClick={onClose} className="p-1 text-teal-400 hover:text-amber-400 bg-teal-800/50 hover:bg-teal-800 rounded-full transition-colors"><X /></button>
+                        </div>
+                        <div className="p-6 overflow-y-auto">
+                            {children}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            const [view, setView] = useState('home');
+            const [selectedDish, setSelectedDish] = useState(null);
+            const [isIngredientsOpen, setIsIngredientsOpen] = useState(false);
+            const [isStepsOpen, setIsStepsOpen] = useState(false);
+
+            const HomeView = () => (
+                <div className="h-full flex flex-col items-center justify-center p-8 bg-teal-950 text-white text-center relative overflow-hidden">
+                    <div className="absolute top-1/4 -right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-[80px]"></div>
+                    <div className="absolute bottom-1/4 -left-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-[80px]"></div>
+
+                    <div className="w-24 h-24 border border-amber-400/50 rounded-full flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(251,191,36,0.15)] z-10 bg-teal-900/50 backdrop-blur-sm">
+                        <span className="text-4xl font-thai text-amber-400">ไทย</span>
+                    </div>
+                    <div className="space-y-4 mb-12 z-10">
+                        <h1 className="text-6xl font-bold tracking-tight font-thai text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]">อาหารไทย</h1>
+                        <h2 className="text-3xl font-bold text-teal-50 mt-2">אוכל תאילנדי</h2>
+                        <div className="h-0.5 w-16 bg-amber-500 mx-auto my-6 opacity-50"></div>
+                        <p className="text-teal-100/90 text-lg font-light leading-relaxed px-4">
+                            ארוחה תאילנדית מוקפדת<br />
+                            ל-10 סועדים
+                        </p>
+                    </div>
+                    <button 
+                        onClick={() => setView('menu')}
+                        className="z-10 bg-amber-500 text-teal-950 px-14 py-4 rounded-full font-bold shadow-[0_0_30px_rgba(245,158,11,0.2)] hover:bg-amber-400 hover:shadow-[0_0_40px_rgba(245,158,11,0.4)] transition-all active:scale-95"
+                    >
+                        לכניסה לתפריט
+                    </button>
+                    <div className="absolute bottom-8 opacity-40 text-[9px] tracking-[0.4em] uppercase text-amber-400 z-10">
+                        Haifa • Chef Dinner • 2026
+                    </div>
+                </div>
+            );
+
+            const MenuView = () => (
+                <div className="h-full flex flex-col bg-teal-950 overflow-y-auto animate-fade-in">
+                    <header className="p-8 bg-teal-900/50 backdrop-blur-md border-b border-teal-800/60 flex justify-between items-end sticky top-0 z-10 shadow-sm">
+                        <div>
+                            <h2 className="text-3xl font-bold text-amber-400 leading-none">התפריט</h2>
+                            <p className="text-teal-300/60 text-[10px] mt-2 uppercase tracking-wider font-thai">เมนูอาหาร</p>
+                        </div>
+                        <button onClick={() => setView('home')} className="text-teal-400 hover:text-amber-400 transition-colors p-1 bg-teal-800/40 rounded-full"><ChevronLeft /></button>
+                    </header>
+                    <div className="p-4 space-y-4">
+                        {dishes.map((dish, i) => (
+                            <button 
+                                key={dish.id}
+                                onClick={() => { setSelectedDish(dish); setView('dish'); }}
+                                className="w-full bg-teal-900/40 rounded-3xl overflow-hidden flex items-center shadow-lg p-2 border border-teal-800/50 hover:border-amber-400/50 hover:bg-teal-800/40 transition-all active:scale-[0.98] group"
+                            >
+                                <div className="w-28 h-28 bg-teal-950 rounded-2xl overflow-hidden shrink-0 relative flex items-center justify-center border border-teal-800/30">
+                                    <img 
+                                        src={dish.image} 
+                                        alt={dish.title} 
+                                        className="absolute inset-0 w-full h-full object-cover z-10" 
+                                        onError={(e) => e.target.style.display = 'none'} 
+                                    />
+                                    {/* Fallback pattern underneath */}
+                                    <span className="absolute font-thai text-6xl text-teal-700 opacity-50 z-0">{dish.thai[0]}</span>
+                                </div>
+                                <div className="p-4 flex-grow text-right">
+                                    <span className="text-[10px] text-amber-500 font-bold block mb-1 uppercase tracking-tighter">{dish.type}</span>
+                                    <h3 className="font-bold text-teal-50 text-lg leading-tight group-hover:text-amber-400 transition-colors">{dish.title}</h3>
+                                </div>
+                                <div className="p-3 text-teal-600 group-hover:text-amber-400 transition-colors z-10"><ChevronLeft /></div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const DishView = ({ dish }) => (
+                <div className="h-full flex flex-col bg-teal-950 overflow-y-auto animate-fade-in pb-24">
+                    <div className="relative h-96 sm:h-[28rem] shrink-0 shadow-lg bg-teal-900 flex items-center justify-center overflow-hidden border-b border-teal-800">
+                        <img 
+                            src={dish.image} 
+                            alt={dish.title} 
+                            className="absolute inset-0 w-full h-full object-cover z-0" 
+                            onError={(e) => e.target.style.display = 'none'} 
+                        />
+                        {/* Fallback pattern underneath */}
+                        <span className="font-thai text-[12rem] text-teal-800 opacity-30 absolute select-none whitespace-nowrap z-0">{dish.thai}</span>
+                        
+                        <div className="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/60 to-transparent z-10"></div>
+
+                        <button 
+                            onClick={() => setView('menu')}
+                            className="absolute top-4 right-4 bg-teal-800/70 backdrop-blur-md text-teal-200 hover:text-amber-400 p-2 rounded-full shadow-lg z-20 transition-transform active:scale-90"
+                        ><ChevronRight /></button>
+                        
+                        <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+                            <span className="text-[10px] bg-amber-500/80 backdrop-blur border border-amber-400/40 text-teal-950 px-2.5 py-1 rounded font-bold uppercase tracking-widest inline-block mb-3">{dish.type}</span>
+                            <h2 className="text-4xl text-teal-50 font-bold mb-1 leading-tight drop-shadow-md">{dish.title}</h2>
+                            <p className="text-amber-400 text-lg font-thai opacity-90">{dish.thai}</p>
+                        </div>
+                    </div>
+
+                    <div className="p-6 space-y-8 text-right">
+                        <section>
+                            <h3 className="font-bold text-amber-400 mb-3 border-b border-teal-800 pb-2 flex items-center">
+                                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full ml-2"></span>
+                                על המנה
+                            </h3>
+                            <p className="text-teal-100/90 text-sm leading-relaxed font-light">{dish.description}</p>
+                        </section>
+
+                        <section className="bg-teal-900/40 p-5 rounded-2xl shadow-inner border-r-4 border-rose-500 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-l from-rose-500/5 to-transparent pointer-events-none"></div>
+                            <h4 className="font-bold text-rose-400 mb-2 text-[10px] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                                Master Note
+                            </h4>
+                            <p className="text-teal-100/80 text-xs leading-relaxed font-light relative z-10">{dish.technical}</p>
+                        </section>
+
+                        <div className="grid grid-cols-2 gap-4 pt-4">
+                            <button 
+                                onClick={() => setIsIngredientsOpen(true)}
+                                className="group flex flex-col items-center justify-center p-5 bg-teal-900/30 border border-teal-800 rounded-3xl hover:border-amber-400/50 hover:bg-teal-800/40 active:bg-teal-900 transition-all shadow-sm active:scale-95"
+                            >
+                                <div className="w-12 h-12 bg-teal-950 text-amber-400 rounded-full flex items-center justify-center mb-3 border border-teal-800 group-hover:scale-110 transition-transform shadow-inner">
+                                    <ListIcon />
+                                </div>
+                                <span className="text-xs font-bold text-teal-50">רכיבים</span>
+                                <span className="text-[9px] text-teal-500/80 mt-1 uppercase tracking-tighter">10 סועדים</span>
+                            </button>
+
+                            <button 
+                                onClick={() => setIsStepsOpen(true)}
+                                className="group flex flex-col items-center justify-center p-5 bg-teal-900/30 border border-teal-800 rounded-3xl hover:border-rose-400/50 hover:bg-teal-800/40 active:bg-teal-900 transition-all shadow-sm active:scale-95"
+                            >
+                                <div className="w-12 h-12 bg-teal-950 text-rose-400 rounded-full flex items-center justify-center mb-3 border border-teal-800 group-hover:scale-110 transition-transform shadow-inner">
+                                    <BookIcon />
+                                </div>
+                                <span className="text-xs font-bold text-teal-50">שלבי הכנה</span>
+                                <span className="text-[9px] text-teal-500/80 mt-1 uppercase tracking-tighter">טכניקה</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <Modal 
+                        isOpen={isIngredientsOpen} 
+                        onClose={() => setIsIngredientsOpen(false)}
+                        title={`רכיבים - ${dish.title}`}
+                    >
+                        <div className="space-y-4">
+                            <p className="text-[10px] text-amber-400/80 font-bold uppercase tracking-widest mb-4 italic text-center bg-amber-900/20 py-2.5 rounded-lg">* כמויות מחושבות ל-10 סועדים</p>
+                            <ul className="space-y-4">
+                                {dish.ingredients.map((ing, i) => (
+                                    <li key={i} className="flex items-start text-teal-100 text-sm group bg-teal-900/30 p-3 rounded-xl border border-teal-800/50 hover:border-amber-500/30 transition-colors">
+                                        <span className="text-teal-950 font-bold text-[10px] bg-amber-400 w-5 h-5 rounded-full flex items-center justify-center shrink-0 ml-3 mt-0.5 shadow-sm">{i + 1}</span>
+                                        {ing}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </Modal>
+
+                    <Modal 
+                        isOpen={isStepsOpen} 
+                        onClose={() => setIsStepsOpen(false)}
+                        title={`שלבי הכנה - ${dish.title}`}
+                    >
+                        <ul className="space-y-6">
+                            {dish.steps.map((step, i) => (
+                                <li key={i} className="flex items-start relative group bg-teal-900/30 p-4 rounded-xl border border-teal-800/50 hover:border-rose-500/30 transition-colors">
+                                    <span className="w-7 h-7 bg-rose-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center ml-4 shrink-0 shadow-md mt-0.5">
+                                        {i + 1}
+                                    </span>
+                                    <p className="text-teal-100 text-sm leading-relaxed pt-1">{step}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </Modal>
+                </div>
+            );
+
+            return (
+                <div className="max-w-md mx-auto h-screen bg-teal-950 shadow-[0_0_60px_rgba(4,47,46,0.9)] relative overflow-hidden">
+                    {view === 'home' && <HomeView />}
+                    {view === 'menu' && <MenuView />}
+                    {view === 'dish' && <DishView dish={selectedDish} />}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
