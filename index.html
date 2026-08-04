@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>อาหารไทย - תפריט תאילנדי עילי</title>
+    <title>อาหารไทย - תפריט תאילנדי עילי (כשר)</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -26,71 +26,37 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
 
         const ChevronRight = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>;
         const ChevronLeft = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>;
         const X = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
         const ListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>;
         const BookIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>;
+        const ShareIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>;
 
         const dishes = [
             {
                 id: 'somtum',
                 title: 'סום טאם',
                 thai: 'ส้มตำไทย',
-                description: 'סלט פפאיה ירוקה פריך, חמוץ, חריף ורענן באופן יוצא דופן. המנה מציגה את השילוב התאילנדי הקלאסי של ארבעת הטעמים המרכזיים: חריפות, חמיצות, מלוח-אומאמי ומתיקות מעודנת.',
+                description: 'סלט פפאיה ירוקה פריך, חמוץ, חריף ורענן באופן יוצא דופן. המנה מציגה את השילוב התאילנדי הקלאסי של ארבעת הטעמים המרכזיים.',
                 image: 'images/1_somtum.jpg',
                 technical: 'כתישה מבוקרת במכתש ועלי עץ (ולא מאבן, כדי למנוע ריסוק). הטכניקה מתמקדת בהוצאת השמנים האתריים ועיסוי הפפאיה לספיגת הרוטב.',
                 type: 'פתיחה קרה',
-                ingredients: [
-                    '2 פפאיה ירוקה גדולה (מגוררת לרצועות)',
-                    '12 שיני שום ישראלי',
-                    '8-10 פלפלי צ\'ילי תאילנדי טרי',
-                    '2 חופנים שעועית תאילנדית ארוכה',
-                    '30 עגבניות שרי תמר, חצויות',
-                    '1.5 כוסות בוטנים קלויים',
-                    '1 כוס מיץ ליים סחוט טרי',
-                    '3/4 כוס רוטב דגים איכותי',
-                    '5 כפות סוכר דקלים טבעי',
-                    '4 כפות חסילונים מיובשים'
-                ],
-                steps: [
-                    'מגררים את הפפאיה הירוקה ומשרים במי קרח ל-10 דקות להגברת פריכות, מסננים היטב.',
-                    'במכתש ועלי מעץ כותשים שום וצ\'ילי יחד עד לקבלת מחית ארומטית.',
-                    'מוסיפים סוכר דקלים, רוטב דגים ומיץ ליים, וממוססים היטב עד שהסוכר נעלם ברוטב.',
-                    'מוסיפים שעועית ירוקה וחסילונים וכותשים קלות לפציעתם.',
-                    'מעסים את רצועות הפפאיה ברוטב במכתש במשך כדקה.',
-                    'מעבירים לצלחת, מפזרים בוטנים קלויים ומגישים מיד לצד כרוב לבן.'
-                ]
+                ingredients: ['2 פפאיה ירוקה גדולה (מגוררת לרצועות)', '12 שיני שום ישראלי', '8-10 פלפלי צ\'ילי תאילנדי טרי', '2 חופנים שעועית תאילנדית ארוכה', '30 עגבניות שרי תמר, חצויות', '1.5 כוסות בוטנים קלויים', '1 כוס מיץ ליים סחוט טרי', '3/4 כוס רוטב דגים איכותי (כשר)', '5 כפות סוכר דקלים טבעי'],
+                steps: ['מגררים את הפפאיה הירוקה ומשרים במי קרח ל-10 דקות להגברת פריכות, מסננים היטב.', 'במכתש ועלי מעץ כותשים שום וצ\'ילי יחד עד לקבלת מחית ארומטית.', 'מוסיפים סוכר דקלים, רוטב דגים ומיץ ליים, וממוססים היטב.', 'מוסיפים שעועית ירוקה וכותשים קלות לפציעתה.', 'מעסים את רצועות הפפאיה ברוטב במכתש במשך כדקה.', 'מעבירים לצלחת, מפזרים בוטנים קלויים ומגישים מיד לצד כרוב לבן.']
             },
             {
-                id: 'larbgai',
-                title: 'לאב גאי',
-                thai: 'ลาบไก่',
-                description: 'סלט בשר עוף קצוץ חם מצפון-מזרח תאילנד. מנה חריפה, חמוצה ובעלת פרופיל ארומטי משכר בזכות שימוש מסיבי בעשבי תיבול טריים ואבקת אורז קלוי.',
-                image: 'images/2_larbgai.jpg',
-                technical: 'האלמנט הקריטי הוא ה-Khao Khwar (אורז קלוי וטחון) שפועל כחומר מעבה הסופח את מיצי הבשר, מעניק מרקם פריך ומפיץ ארומה אגוזית.',
-                type: 'פתיחה חמה',
-                ingredients: [
-                    '1.2 ק"ג בשר עוף קצוץ דק מאוד בסכין',
-                    '3/4 כוס אורז דביק תאילנדי לא מבושל (לקלייה)',
-                    '2 בצלים סגולים פרוסים דק במיוחד',
-                    '6 גבעולי בצל ירוק קצוצים',
-                    '2 כוסות עלי נענע טרייה',
-                    '1.5 כוסות כוסברה קצוצה גס',
-                    '6 כפות שבבי צ\'ילי יבש חריף',
-                    '3/4 כוס מיץ ליים טרי',
-                    '1/2 כוס רוטב דגים'
-                ],
-                steps: [
-                    'קולים אורז דביק במחבת יבשה במשך 15-20 דקות עד השחמה, וכותשים לאבקה גסה (Khao Khwar).',
-                    'בסיר רחב חולטים את העוף הקצוץ עם מעט ציר או מים עד שהוא מבושל לחלוטין.',
-                    'מכבים את האש! (קריטי). מוסיפים רוטב דגים, מיץ ליים ושבבי צ\'ילי יבש לתוך הבשר החם.',
-                    'מוסיפים בצל סגול, בצל ירוק וכוסברה ומערבבים קלות.',
-                    'רגע לפני ההגשה מקפלים פנימה את האורז הקלוי ועלי הנענע.',
-                    'מגישים לצד רצועות מלפפון קר ועלי חסה רעננים.'
-                ]
+                id: 'tamkhaopod',
+                title: 'טאם קאו פוד',
+                thai: 'ตำข้าวโพด',
+                description: 'סלט תירס תאילנדי מתוק, מלוח, חמוץ וחריף. גרסה רעננה ומתפצפצת של הסלט התאילנדי הקלאסי.',
+                image: 'images/2_tamkhaopod.jpg',
+                technical: 'חיתוך אשכולות של גרגירי תירס היישר מהקלח המבושל ופירוקם העדין במכתש. חשוב לא לכתוש את התירס כדי לשמור על הפצפוץ הנגיס שלו.',
+                type: 'פתיחה קרה',
+                ingredients: ['10 קלחי תירס מתוק וטרי (מבושלים קלות)', '10 שיני שום ישראלי קטנות', '8-10 פלפלי צ\'ילי תאילנדי טרי', '30 עגבניות שרי תמר', '2 חופנים שעועית תאילנדית ארוכה', '1.5 כוסות בוטנים קלויים', '1 כוס מיץ ליים טרי', '3/4 כוס רוטב דגים איכותי (כשר)', '5 כפות סוכר דקלים טבעי'],
+                steps: ['מבשלים את קלחי התירס כ-5 דקות, מצננים וחותכים את הגרגירים מהקלח.', 'במכתש עץ כותשים יחד את השום והצ\'ילי למחית ארומטית.', 'מוסיפים סוכר דקלים, רוטב דגים ומיץ ליים, וכותשים עד המסה.', 'מוסיפים את השעועית הירוקה וכותשים קלות, ולאחר מכן את העגבניות למעיכה קלה.', 'מוסיפים את גרגירי התירס למכתש ומערבבים היטב עם כף (רק עיסוי).', 'מעבירים לצלחת הגשה, מפזרים בוטנים קלויים ומגישים.']
             },
             {
                 id: 'tomyum',
@@ -98,30 +64,10 @@
                 thai: 'ต้มยำปลา',
                 description: 'מרק טום יאם מסורתי בגרסת דגים כשרה. ציר ארומטי, חמוץ, חריף ועמוק, הכולל נגיעה של חלב קוקוס למרקם קטיפתי יחד עם נתחי דג ים לבן ועדין.',
                 image: 'images/3_tomyum.jpg',
-                technical: 'סוד המרק טמון בציר עמוק מאידרות דגים, ומיצוי של "השילוש הקדוש" (למון גראס, גלאנגל, קפיר ליים). את נתחי הדג מחליקים פנימה בסוף ואסור לערבב כדי לא לפורר את הבשר העדין. חומציות הליים מתווספת תמיד רק לאחר כיבוי האש.',
+                technical: 'סוד המרק טמון בציר עמוק מאידרות דגים, ומיצוי של "השילוש הקדוש". את נתחי הדג מחליקים פנימה בסוף ואסור לערבב כדי לא לפורר את הבשר העדין.',
                 type: 'מרק',
-                ingredients: [
-                    '1.5 ק"ג פילה דג ים לבן, מוצק וטרי (זהרון, לוקוס או ברמונדי יעבדו פה מושלם), חתוך לקוביות',
-                    'אדרות וראשי דגים (נקיים מזימים) להכנת הציר',
-                    '8 גבעולי למון גראס (רק החלק הלבן) מעוכים קלות',
-                    '15 פרוסות דקות של גלאנגל טרי',
-                    '15 עלי קפיר ליים קרועים ידנית',
-                    '10 פלפלי צ\'ילי תאילנדי',
-                    '500 גרם פטריות טריות (חתוכות)',
-                    '5 כפות משחת צ\'ילי תאילנדית (Nam Prik Pao - גרסה כשרה ללא שרימפס)',
-                    '1/2 כוס רוטב דגים (כשר)',
-                    '2/3 כוס מיץ ליים סחוט טרי',
-                    '1 כוס חלב קוקוס עשיר',
-                    '1 כוס כוסברה קצוצה'
-                ],
-                steps: [
-                    'הכנת הציר: מרתיחים 2.5 ליטר מים עם אדרות וראשי הדגים (כדאי לטגן אותם קלות קודם להעמקת הטעם) למשך 30 דקות. מסננים היטב לסיר נקי.',
-                    'מרתיחים שוב את הציר הנקי. מוסיפים למון גראס, גלאנגל, עלי קפיר ליים וצ\'ילי. מבשלים 5-7 דקות לשחרור הארומות.',
-                    'מוסיפים פטריות, משחת צ\'ילי ורוטב דגים למרק ומבשלים 3-4 דקות נוספות.',
-                    'מוסיפים חלב קוקוס ומביאים לרתיחה עדינה. מחליקים פנימה את קוביות הדג. מבשלים 3-4 דקות ללא ערבוב כלל, כדי לא לפורר את הדג.',
-                    'מכבים את האש לחלוטין. מוסיפים מיץ ליים וכוסברה קצוצה, וטועמים לאיזון.',
-                    'מגישים בקעריות עמוקות וחמות.'
-                ]
+                ingredients: ['1.5 ק"ג פילה דג ים לבן, מוצק וטרי', 'אדרות וראשי דגים להכנת הציר', '8 גבעולי למון גראס מעוכים', '15 פרוסות דקות של גלאנגל טרי', '15 עלי קפיר ליים', '10 פלפלי צ\'ילי תאילנדי', '500 גרם פטריות טריות', '5 כפות משחת צ\'ילי תאילנדית (Nam Prik Pao - כשרה)', '1/2 כוס רוטב דגים (כשר)', '2/3 כוס מיץ ליים סחוט טרי', '1 כוס חלב קוקוס עשיר', '1 כוס כוסברה קצוצה'],
+                steps: ['מרתיחים מים עם אדרות וראשי הדגים למשך 30 דקות. מסננים היטב לסיר נקי.', 'מרתיחים שוב את הציר הנקי. מוסיפים למון גראס, גלאנגל, קפיר ליים וצ\'ילי. מבשלים 5 דקות.', 'מוסיפים פטריות, משחת צ\'ילי ורוטב דגים למרק ומבשלים 3-4 דקות נוספות.', 'מוסיפים חלב קוקוס. מחליקים פנימה את קוביות הדג. מבשלים 3-4 דקות ללא ערבוב כלל.', 'מכבים את האש לחלוטין. מוסיפים מיץ ליים וכוסברה קצוצה.', 'מגישים בקעריות עמוקות וחמות.']
             },
             {
                 id: 'khaosoi',
@@ -131,25 +77,8 @@
                 image: 'images/4_khaosoi.jpg',
                 technical: 'טכניקת ה-Coconut Crack: אידוי החלק השומני של הקוקוס בווק עד הפרשת שמן שקוף. טיגון משחת הקארי בשמן זה מעניק עומק שאי אפשר להשיג בטיגון רגיל.',
                 type: 'עיקרית',
-                ingredients: [
-                    '2.5 ק"ג כרעי עוף ושוקיים נקיים',
-                    '3 כוסות משחת קארי קאו סוי (או קארי אדום וצהוב)',
-                    '1.5 ליטר קרם קוקוס מופרד (חלק סמיך וחלק נוזלי)',
-                    '1 ליטר ציר עוף עשיר',
-                    '1.5 ק"ג אטריות ביצים תאילנדיות',
-                    '6 כפות סוכר דקלים',
-                    '1/2 כוס רוטב דגים',
-                    'שמן לטיגון עמוק',
-                    'לתוספות: בצלצלי שאלוט, חמוצי עלי חרדל, ליים ושמן צ\'ילי'
-                ],
-                steps: [
-                    'יוצקים 2 כוסות מהחלק הסמיך של קרם הקוקוס לסיר ומבשלים עד שהקרם נשבר ומפריש שמן.',
-                    'מטגנים את משחת הקארי בשמן הקוקוס במשך 5 דקות ומפיצים ארומה עזה.',
-                    'מוסיפים את העוף וצורבים היטב.',
-                    'מוסיפים את יתרת נוזל הקוקוס וציר העוף. מבשלים על אש קטנה שעה ורבע. מתבלים בסוכר דקלים ורוטב דגים.',
-                    'מטגנים בשמן עמוק כ-20% מכמות האטריות לקבלת אטריות פריכות וזהובות. את השאר מבשלים במים לאל-דנטה.',
-                    'מרכיבים קערה עם אטריות רכות, עוף מרק סמיך, ומעל הכל חופן גדול של אטריות פריכות.'
-                ]
+                ingredients: ['2.5 ק"ג כרעי עוף ושוקיים نקיים', '3 כוסות משחת קארי קאו סוי', '1.5 ליטר קרם קוקוס מופרד', '1 ליטר ציר עוף עשיר', '1.5 ק"ג אטריות ביצים תאילנדיות', '6 כפות סוכר דקלים', '1/2 כוס רוטב דגים (כשר)', 'לתוספות: בצלצלי שאלוט, חמוצי עלי חרדל, ליים ושמן צ\'ילי'],
+                steps: ['יוצקים מהחלק הסמיך של קרם הקוקוס לסיר ומבשלים עד שהקרם נשבר ומפריש שמן.', 'מטגנים את משחת הקארי בשמן הקוקוס במשך 5 דקות.', 'מוסיפים את העוף וצורבים היטב.', 'מוסיפים את יתרת הקוקוס וציר העוף. מבשלים שעה ורבע עד רכות.', 'מטגנים בשמן עמוק 20% מכמות האטריות. את השאר מבשלים במים לאל-דנטה.', 'מרכיבים קערה עם אטריות רכות, עוף מרק סמיך, ומעל אטריות פריכות.']
             },
             {
                 id: 'planeung',
@@ -159,49 +88,35 @@
                 image: 'images/5_planeung.jpg',
                 technical: 'חריצה עד העצם מבטיחה בישול מהיר. הרוטב יוצק על הדג מיד כשהוא יוצא מהאידוי בעודו לוהט, מה שגורם לבשר לפעול כספוג מדהים לטעמים.',
                 type: 'עיקרית',
-                ingredients: [
-                    '3 דגי לברק/ברמונדי שלמים (כ-700 גרם לכל דג)',
-                    '6 גבעולי למון גראס מעוכים היטב',
-                    '1.5 כוסות שיני שום קצוצות דק מאוד',
-                    '1 כוס פלפל צ\'ילי אדום וירוק קצוץ דק',
-                    '1.5 כוסות מיץ ליים טרי',
-                    '1 כוס רוטב דגים איכותי',
-                    '4 כפות סוכר דקלים מומס',
-                    '1 כוס ציר דגים חם',
-                    '2 כוסות עלי כוסברה טרייה קצוצה'
-                ],
-                steps: [
-                    'חורצים 3-4 חתכים אלכסוניים בכל צד של הדג עד העצם. דוחסים למון גראס לחלל הבטן.',
-                    'בקערה נפרדת מערבבים שום, צ\'ילי, מיץ ליים, רוטב דגים, סוכר דקלים וציר חם.',
-                    'מרתיחים מים פראית בסיר אידוי. מאדים את הדגים על אש גבוהה במשך 12-14 דקות.',
-                    'מוציאים את הדגים. שופכים חצי מנוזלי האידוי שהצטברו בצלחת, ומיד יוצקים מעל הדגים את כל רוטב הליים-צ\'ילי.',
-                    'מפזרים הר של כוסברה קצוצה ומגישים לוהט לשולחן.'
-                ]
+                ingredients: ['3 דגי לברק/ברמונדי שלמים', '6 גבעולי למון גראס מעוכים היטב', '1.5 כוסות שיני שום קצוצות', '1 כוס פלפל צ\'ילי אדום וירוק', '1.5 כוסות מיץ ליים טרי', '1 כוס רוטב דגים (כשר)', '4 כפות סוכר דקלים מומס', '1 כוס ציר דגים חם', '2 כוסות עלי כוסברה טרייה קצוצה'],
+                steps: ['חורצים 3-4 חתכים אלכסוניים בכל צד של הדג עד העצם. דוחסים למון גראס לחלל הבטן.', 'בקערה נפרדת מערבבים שום, צ\'ילי, מיץ ליים, רוטב דגים, סוכר דקלים וציר חם.', 'מרתיחים מים פראית בסיר אידוי. מאדים את הדגים על אש גבוהה 12-14 דקות.', 'מוציאים את הדגים. שופכים חצי מנוזלי האידוי שהצטברו בצלחת, ומיד יוצקים מעל הדגים את הרוטב.', 'מפזרים הר של כוסברה קצוצה ומגישים לוהט לשולחן.']
             },
             {
-                id: 'stickyrice',
-                title: 'קאו ניאו ממואנג',
-                thai: 'ข้าวเหนียวมะม่วง',
-                description: 'קינוח הרחוב המלכותי. שילוב גאוני בין אורז דביק חמים ספוג בקרם קוקוס מתוק-מלוח, לבין פרוסות מנגו בשל, קר ורענן.',
-                image: 'images/6_mangostickyrice.jpg',
-                technical: 'הטמעת "חום על חום": שטיפה קפדנית של האורז עד מים שקופים, וערבוב האורז הלוהט ישר מהאידוי עם קרם הקוקוס החם להבטחת ספיגה מוחלטת לשומן.',
-                type: 'קינוח',
-                ingredients: [
-                    '1 ק"ג אורז דביק תאילנדי (Glutinous Rice - חובה)',
-                    '3 כוסות קרם קוקוס טבעי סמיך ואיכותי',
-                    '1.5 כוסות סוכר לבן',
-                    '2 כפיות שטוחות מלח ים דק (לאיזון התאילנדי המסורתי)',
-                    '6 יחידות מנגו גדולים, בשלים ויציבים',
-                    '4 כפות זרעי שעועית מונג צהובים (Thua Thong) קלויים לפריכות'
-                ],
-                steps: [
-                    'שוטפים את האורז 5-6 פעמים במים זורמים עד שהם צלולים לחלוטין. משרים במי ברז 6-8 שעות.',
-                    'מאדים את האורז בסלסלת במבוק מעל מים רותחים (האורז לא נוגע במים) במשך 25 דקות.',
-                    'בסיר קטן מחממים 2.5 כוסות קרם קוקוס, סוכר ומלח רק עד המסה (אסור להגיע לרתיחה).',
-                    'יוצקים את סירופ הקוקוס החם מעל האורז הלוהט והמאודה בקערה. מערבבים בעדינות, מכסים ומשאירים ל-40 דקות לספיגה וניפוח.',
-                    'מכינים רוטב ציפוי: בחצי כוס קרם הנותרת, מערבבים כפית סוכר וקורט מלח ומחממים קלות.',
-                    'בצלחת מסדרים תלולית אורז דביק מבריק, לצידה מנגו קר, מזלפים רוטב ציפוי מעל ומפזרים זרעי מונג קלויים.'
-                ]
+                id: 'namkangsai',
+                title: 'נאם קנג סאי',
+                thai: 'น้ำแข็งไส',
+                description: 'קינוח קרח גרוס תאילנדי מרענן ומרהיב ביופיו. הר של קרח גרוס ספוג בסירופ ורוד מתוק, המסתיר בתוכו פניני "רובי" פריכות.',
+                image: 'images/6_namkangsai.jpg',
+                technical: 'הכנת ה-Tub Tim Krob (פניני הרובי): ציפוי קוביות ערמוני המים בקמח טפיוקה ובישולם המדויק במים רותחים מעניק להם מעטפת שקופה ומרקם פנימי סופר-קראנצ\'י.',
+                type: 'קינוח קר',
+                ingredients: ['500 גרם ערמוני מים (משימורים)', '2 כוסות קמח טפיוקה', '1/2 כוס סירופ סאלה (Sala Syrup) אדום (לצביעה)', 'קרח גרוס דק (ל-10 מנות)', '1.5 כוסות סירופ סאלה אדום (למזיגה)', '2 כוסות קרם קוקוס עשיר + קורט מלח', 'פירות העונה חתוכים לקוביות קטנות'],
+                steps: ['חותכים ערמוני מים לקוביות קטנות. משרים בסירופ הסאלה למשך 15 דקות עד שנצבעות ומסננים.', 'מעבירים את הקוביות לשקית עם קמח הטפיוקה ומנערים היטב עד לציפוי מלא.', 'מבשלים את הקוביות במים רותחים עד שהן צפות והמעטפת שקופה. מעבירים למי קרח לעצירת בישול.', 'מכינים את קרם הקוקוס: מחממים קלות עם קורט מלח ומצננים.', 'בקעריות מניחים בתחתית מתערובת פניני הרובי והפירות הטריים.', 'עורמים הר של קרח גרוס, מזלפים סירופ אדום מתוק וקרם קוקוס, ומגישים מיד.']
+            }
+        ];
+
+        // Global Shopping List Data
+        const fullShoppingList = [
+            {
+                category: 'ירקות ופירות 🥥',
+                items: ['2 פפאיה ירוקה גדולה', '10 קלחי תירס מתוק', '60 עגבניות שרי תמר', '4 חופנים שעועית תאילנדית ארוכה', 'פירות העונה לקינוח (מנגו/דרקון)', '20 יחידות ליים טרי', '2 ראשי שום (ישראלי)', '3 בצלים סגולים + בצלצלי שאלוט', '30 פלפלי צ\'ילי תאילנדי טרי', '3 חבילות כוסברה, 2 בצל ירוק, 1 נענע', '2 חבילות למון גראס', 'שורש גלאנגל טרי', 'עלי קפיר ליים טריים', '500 גרם פטריות טריות']
+            },
+            {
+                category: 'בשר ודגים (כשר) 🐟',
+                items: ['2.5 ק"ג כרעיים ושוקיים עוף (נקיים)', '1.5 ק"ג פילה דג ים לבן מוצק', '3 דגי לברק/ברמונדי שלמים (לנקיות)', 'אדרות וראשי דגים טריים (לציר)']
+            },
+            {
+                category: 'מזווה ורטבים 🌶️',
+                items: ['2 בקבוקי רוטב דגים כשר', 'משחת קארי קאו סוי (או אדום/צהוב)', 'משחת צ\'ילי Nam Prik Pao כשרה', 'חצי קילו סוכר דקלים טבעי', '6 קרטוני קרם/חלב קוקוס איכותי', '1.5 ק"ג אטריות ביצים תאילנדיות', '1 קופסת שימורים ערמוני מים', 'קמח טפיוקה', 'סירופ סאלה (Sala Syrup) אדום', '2 כוסות בוטנים קלויים ללא מלח', 'בקבוק שמן לטיגון עמוק']
             }
         ];
 
@@ -228,6 +143,41 @@
             const [selectedDish, setSelectedDish] = useState(null);
             const [isIngredientsOpen, setIsIngredientsOpen] = useState(false);
             const [isStepsOpen, setIsStepsOpen] = useState(false);
+            
+            const [isShoppingModalOpen, setIsShoppingModalOpen] = useState(false);
+            const [isEquipmentModalOpen, setIsEquipmentModalOpen] = useState(false);
+
+            // Table State - loads from localStorage
+            const [assignments, setAssignments] = useState(() => {
+                const saved = localStorage.getItem('thaiShoppingAssignments');
+                return saved ? JSON.parse(saved) : {};
+            });
+
+            // Save to localStorage when assignments change
+            useEffect(() => {
+                localStorage.setItem('thaiShoppingAssignments', JSON.stringify(assignments));
+            }, [assignments]);
+
+            const handleAssignmentChange = (item, value) => {
+                setAssignments(prev => ({ ...prev, [item]: value }));
+            };
+
+            const shareToWhatsApp = () => {
+                let text = "*רשימת קניות - ארוחה תאילנדית* 🇹🇭\n\n";
+                fullShoppingList.forEach(group => {
+                    text += `*${group.category}:*\n`;
+                    group.items.forEach(item => {
+                        const person = assignments[item] ? ` 👈 ${assignments[item]}` : '';
+                        text += `• ${item}${person}\n`;
+                    });
+                    text += '\n';
+                });
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('הרשימה המלאה והשיבוצים הועתקו! כעת אפשר להדביק בוואטסאפ של החבר\'ה.');
+                });
+            };
 
             const HomeView = () => (
                 <div className="h-full flex flex-col items-center justify-center p-8 bg-teal-950 text-white text-center relative overflow-hidden">
@@ -237,7 +187,7 @@
                     <div className="w-24 h-24 border border-amber-400/50 rounded-full flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(251,191,36,0.15)] z-10 bg-teal-900/50 backdrop-blur-sm">
                         <span className="text-4xl font-thai text-amber-400">ไทย</span>
                     </div>
-                    <div className="space-y-4 mb-12 z-10">
+                    <div className="space-y-4 mb-10 z-10 w-full">
                         <h1 className="text-6xl font-bold tracking-tight font-thai text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]">อาหารไทย</h1>
                         <h2 className="text-3xl font-bold text-teal-50 mt-2">אוכל תאילנדי</h2>
                         <div className="h-0.5 w-16 bg-amber-500 mx-auto my-6 opacity-50"></div>
@@ -246,14 +196,34 @@
                             ל-10 סועדים
                         </p>
                     </div>
-                    <button 
-                        onClick={() => setView('menu')}
-                        className="z-10 bg-amber-500 text-teal-950 px-14 py-4 rounded-full font-bold shadow-[0_0_30px_rgba(245,158,11,0.2)] hover:bg-amber-400 hover:shadow-[0_0_40px_rgba(245,158,11,0.4)] transition-all active:scale-95"
-                    >
-                        לכניסה לתפריט
-                    </button>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-4 items-center z-10 w-full max-w-[320px]">
+                        <button 
+                            onClick={() => setView('menu')}
+                            className="w-full bg-amber-500 text-teal-950 px-6 py-4 rounded-2xl font-bold shadow-[0_0_30px_rgba(245,158,11,0.2)] hover:bg-amber-400 hover:shadow-[0_0_40px_rgba(245,158,11,0.4)] transition-all active:scale-95 text-lg mb-2"
+                        >
+                            כניסה לתפריט הארוחה
+                        </button>
+                        
+                        <div className="flex gap-3 w-full">
+                            <button 
+                                onClick={() => setIsShoppingModalOpen(true)}
+                                className="flex-1 bg-teal-800/60 backdrop-blur-md text-amber-400 border border-amber-400/30 py-3 rounded-2xl font-bold shadow-lg hover:bg-teal-700/60 hover:border-amber-400/60 transition-all active:scale-95 text-sm"
+                            >
+                                🛒 רשימת מצרכים
+                            </button>
+                            <button 
+                                onClick={() => setIsEquipmentModalOpen(true)}
+                                className="flex-1 bg-teal-800/60 backdrop-blur-md text-amber-400 border border-amber-400/30 py-3 rounded-2xl font-bold shadow-lg hover:bg-teal-700/60 hover:border-amber-400/60 transition-all active:scale-95 text-sm"
+                            >
+                                🔪 רשימת ציוד
+                            </button>
+                        </div>
+                    </div>
+
                     <div className="absolute bottom-8 opacity-40 text-[9px] tracking-[0.4em] uppercase text-amber-400 z-10">
-                        Mizrahi's House • Tai Chef Dinner • 2026
+                        Haifa • Chef Dinner • 2026
                     </div>
                 </div>
             );
@@ -281,10 +251,9 @@
                                         className="absolute inset-0 w-full h-full object-cover z-10" 
                                         onError={(e) => e.target.style.display = 'none'} 
                                     />
-                                    {/* Fallback pattern underneath */}
                                     <span className="absolute font-thai text-6xl text-teal-700 opacity-50 z-0">{dish.thai[0]}</span>
                                 </div>
-                                <div className="p-4 flex-grow text-right">
+                                <div className="p-4 flex-grow text-right z-10">
                                     <span className="text-[10px] text-amber-500 font-bold block mb-1 uppercase tracking-tighter">{dish.type}</span>
                                     <h3 className="font-bold text-teal-50 text-lg leading-tight group-hover:text-amber-400 transition-colors">{dish.title}</h3>
                                 </div>
@@ -304,7 +273,6 @@
                             className="absolute inset-0 w-full h-full object-cover z-0" 
                             onError={(e) => e.target.style.display = 'none'} 
                         />
-                        {/* Fallback pattern underneath */}
                         <span className="font-thai text-[12rem] text-teal-800 opacity-30 absolute select-none whitespace-nowrap z-0">{dish.thai}</span>
                         
                         <div className="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/60 to-transparent z-10"></div>
@@ -406,6 +374,103 @@
                     {view === 'home' && <HomeView />}
                     {view === 'menu' && <MenuView />}
                     {view === 'dish' && <DishView dish={selectedDish} />}
+                    
+                    {/* Shopping List Modal */}
+                    <Modal 
+                        isOpen={isShoppingModalOpen} 
+                        onClose={() => setIsShoppingModalOpen(false)}
+                        title="רשימת מצרכים ל-10 סועדים"
+                    >
+                        <div className="space-y-6">
+                            <p className="text-teal-200 text-sm bg-teal-900/40 p-3 rounded-lg border border-teal-800/60 leading-relaxed font-light">
+                                <span className="font-bold text-amber-400 ml-1">טיפ:</span> 
+                                הקלד את השם בעמודת "מי מביא?". הנתונים <strong>נשמרים אוטומטית</strong> בדפדפן. בסיום לחץ על כפתור השיתוף למטה כדי להעתיק לוואטסאפ.
+                            </p>
+
+                            <div className="overflow-x-auto pb-4">
+                                <table className="w-full text-right text-teal-100 border-collapse text-sm">
+                                    <thead>
+                                        <tr className="border-b-2 border-teal-800 text-amber-400">
+                                            <th className="p-2 font-bold w-2/3">מצרך / כמות</th>
+                                            <th className="p-2 font-bold w-1/3">מי מביא?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {fullShoppingList.map((group, groupIdx) => (
+                                            <React.Fragment key={groupIdx}>
+                                                <tr className="bg-teal-900/50">
+                                                    <td colSpan="2" className="p-2 font-bold text-rose-300 border-b border-teal-800/50 pt-4">
+                                                        {group.category}
+                                                    </td>
+                                                </tr>
+                                                {group.items.map((item, itemIdx) => (
+                                                    <tr key={itemIdx} className="border-b border-teal-800/30 hover:bg-teal-900/20 transition-colors">
+                                                        <td className="p-2 font-light">{item}</td>
+                                                        <td className="p-1.5">
+                                                            <input 
+                                                                type="text" 
+                                                                placeholder="הקלד שם..."
+                                                                value={assignments[item] || ''}
+                                                                onChange={(e) => handleAssignmentChange(item, e.target.value)}
+                                                                className="w-full bg-teal-950 border border-teal-800 rounded px-2 py-1.5 text-amber-400 placeholder-teal-700 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all text-sm"
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </React.Fragment>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <button 
+                                onClick={shareToWhatsApp}
+                                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-colors active:scale-95"
+                            >
+                                <ShareIcon />
+                                העתק רשימה לוואטסאפ
+                            </button>
+                        </div>
+                    </Modal>
+
+                    {/* Equipment Modal */}
+                    <Modal 
+                        isOpen={isEquipmentModalOpen} 
+                        onClose={() => setIsEquipmentModalOpen(false)}
+                        title="ציוד טכני לארוחה"
+                    >
+                        <div className="space-y-6">
+                            <p className="text-teal-200 text-sm font-light mb-4">
+                                כלים מיוחדים הנדרשים לביצוע מדויק של הטכניקות בארוחה התאילנדית:
+                            </p>
+                            <ul className="text-teal-100 text-sm space-y-4 font-light">
+                                <li className="flex gap-3 bg-teal-900/30 p-4 rounded-xl border border-teal-800/50">
+                                    <span className="text-amber-500 mt-1">▪</span> 
+                                    <span><strong className="text-amber-400 block mb-1">מכתש ועלי (רצוי מעץ)</strong> חובה לסלט הפפאיה והתירס כדי לאפשר "עיסוי" עדין של המרכיבים ולמנוע ריסוק שנוצר ממכתש אבן. משמש גם לכתישת התבלינים.</span>
+                                </li>
+                                <li className="flex gap-3 bg-teal-900/30 p-4 rounded-xl border border-teal-800/50">
+                                    <span className="text-amber-500 mt-1">▪</span> 
+                                    <span><strong className="text-amber-400 block mb-1">סיר אידוי גדול</strong> מבמבוק קלאסי או מתכת. חייב להיות רחב מספיק כדי לאדות בו את הדגים השלמים (עבור הפלה ננג מנאו).</span>
+                                </li>
+                                <li className="flex gap-3 bg-teal-900/30 p-4 rounded-xl border border-teal-800/50">
+                                    <span className="text-amber-500 mt-1">▪</span> 
+                                    <span><strong className="text-amber-400 block mb-1">ווק או סיר סוטאז' רחב</strong> דרוש לטיגון העמוק של האטריות (עבור מנת הקאו סוי) ולבישול תבשיל הקארי והעוף.</span>
+                                </li>
+                                <li className="flex gap-3 bg-teal-900/30 p-4 rounded-xl border border-teal-800/50">
+                                    <span className="text-amber-500 mt-1">▪</span> 
+                                    <span><strong className="text-amber-400 block mb-1">קולפן ג'וליאן / מגררת פפאיה תאילנדית</strong> חובה לחיתוך אחיד, דק, ארוך ומהיר של הפפאיה הירוקה.</span>
+                                </li>
+                                <li className="flex gap-3 bg-teal-900/30 p-4 rounded-xl border border-teal-800/50">
+                                    <span className="text-amber-500 mt-1">▪</span> 
+                                    <span><strong className="text-amber-400 block mb-1">בלנדר חזק או מכשיר לקרח גרוס</strong> קריטי להכנת "הר הקרח" הדק עבור קינוח הנאם קנג סאי.</span>
+                                </li>
+                                <li className="flex gap-3 bg-teal-900/30 p-4 rounded-xl border border-teal-800/50">
+                                    <span className="text-amber-500 mt-1">▪</span> 
+                                    <span><strong className="text-amber-400 block mb-1">סיר מרק גדול מאוד</strong> להרתחה והכנת ציר הדגים העמוק עבור הטום יאם פלה.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </Modal>
                 </div>
             );
         }
